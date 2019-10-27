@@ -24,78 +24,93 @@ public class InputManager : MonoBehaviour
     public GameObject startPointPrefab;
     public GameObject startPointParent;
 
+    public GameObject combatPlane;
+    int layerMask = 1 << 8;
+
     GameObject startPointMarker;
     GameObject midPointMarker;
     GameObject endPointMarker;
     GameObject topCornerMarker;
     GameObject bottomCornerMarker;
 
+    public LineRenderer laserLineRenderer;
+
     SelectionManager SelectionManager;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        laserLineRenderer.startWidth = .01f;
+        laserLineRenderer.startColor = Color.red;
+        Debug.Log(LayerMask.LayerToName(8));
     }
 
     // Update is called once per frame
     void Update()
     {
+        #region draw debug ray
+        // Draw a debug ray from the right hand. 
+        Ray ray = new Ray(righthand.transform.position, righthand.transform.forward);
+        RaycastHit raycastHit;
+        Vector3 endPosition = righthand.transform.position + (60 * righthand.transform.forward);
+
+        if (Physics.Raycast(ray, out raycastHit, 60))
+        {
+            endPosition = raycastHit.point;
+        }
+
+        laserLineRenderer.SetPosition(0, righthand.transform.position);
+        laserLineRenderer.SetPosition(1, endPosition);
+        #endregion draw debug ray
+
+
         if (OVRInput.Get(OVRInput.Button.One))
         {
             Debug.Log("40");
         }
-        //Primary controller detection
+        //Trigger pull on primary controller detection
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
-  //          Debug.Log("TriggerPull");
-            selectionPane1.gameObject.SetActive(true);
 
-            selectionPane1.transform.LookAt(selectionPane1.transform.position + Camera.main.transform.rotation * Vector3.forward,
- Camera.main.transform.rotation * Vector3.up);
-
-            Vector3 faceCam = Vector3.Cross(Camera.main.transform.forward, Camera.main.transform.up);
-            Vector3 faceCam2 = Vector3.Cross(Camera.main.transform.forward, Camera.main.transform.right);
-
-            Vector3 vR = Camera.main.transform.localRotation.eulerAngles;
-            vR.y *= -1;
-
-            selectionPane1.transform.rotation = new Quaternion(faceCam.x, faceCam.y, faceCam.z, 1);
-
-            boxOneStart = righthand.transform.position;
-
-            startPointMarker = Instantiate(startPointPrefab, boxOneStart, new Quaternion(0, 0, 0, 0));
-
-            midPointMarker = Instantiate(startPointPrefab, boxOneStart, new Quaternion(0, 0, 0, 0));
-            /*
             RaycastHit hit;
-
-            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit))
+            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity ,layerMask))
             {
                 if (hit.collider.gameObject.CompareTag("SelectionPlane"))
                 {
-                    SelectionManager.beginSquareR(hit.point);
+                    startPointMarker = Instantiate(startPointPrefab, hit.point, combatPlane.transform.rotation);
+                    midPointMarker = Instantiate(startPointPrefab, hit.point, combatPlane.transform.rotation);
+                    selectionPane1.SetActive(true);
+                    Debug.Log("Spawned marker at " + hit.point);
                 }
-            }*/
+            }
         }
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
         {
-//            Debug.Log("Trigger is down");
-            if (selectionPane1.gameObject.activeSelf == false)
+            RaycastHit hit;
+            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity,layerMask))
             {
-                selectionPane1.gameObject.SetActive(true);
+                if (hit.collider.gameObject.CompareTag("SelectionPlane"))
+                {
+                    midPointMarker.transform.position = hit.point;
+                    Vector3 center = (hit.point + startPointMarker.transform.position) / 2f;
+
+                    selectionPane1.transform.position = center;
+                        //new Vector3(center.x, center.y -1 , center.z);
+
+
+                    float sizex = Mathf.Abs(startPointMarker.transform.position.x - hit.point.x);
+                    float sizez = Mathf.Abs(startPointMarker.transform.position.z - hit.point.z);
+
+
+                    Debug.Log("SizeX:" + sizex + "   SizeZ: " + sizez + "   Hit point" + hit.point);
+
+                    selectionPane1.transform.localScale = new Vector3(sizex, selectionPane1.transform.localScale.y, sizez);
+
+                    
+
+                }
             }
-
-            Vector3 center = (righthand.transform.position + boxOneStart) / 2f;
-            Debug.Log(boxOneStart);
-            Debug.Log(righthand.transform.position);
-            Debug.Log(center);
-            Debug.Log(center);
-            float sizex = Mathf.Abs(boxOneStart.x - righthand.transform.position.x);
-            float sizey = Mathf.Abs(boxOneStart.y - righthand.transform.position.y);
-
-            midPointMarker.transform.position = center;
-            selectionPane1.transform.position = center;
+           
 
             //            selectionPane1.transform.rotation = new Quaternion(-Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, Camera.main.transform.rotation.z, Camera.main.transform.rotation.w);
 
@@ -113,6 +128,9 @@ public class InputManager : MonoBehaviour
         {
     //        Debug.Log("Released Trigger");
             selectionPane1.gameObject.SetActive(false);
+            selectionPane1.transform.localScale = new Vector3(1, 1, 1);
+            Destroy(startPointMarker);
+            Destroy(midPointMarker);
             /*
             checkFlags();
             RaycastHit hit;
