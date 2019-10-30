@@ -12,4 +12,5 @@ public class UnitScriptableObject : ScriptableObject
     public float Damage;
     public float Speed;
     public float Range;
+    public float AtkSpeed;
 }

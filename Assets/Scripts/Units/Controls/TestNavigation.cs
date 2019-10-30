@@ -7,7 +7,7 @@ public class TestNavigation : MonoBehaviour
     [SerializeField]
     Transform[] points = new Transform [5];
     [SerializeField]
-    ShipNavigation ship;
+    Unit ship;
 
 
     // Update is called once per frame
