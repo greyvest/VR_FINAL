@@ -32,6 +32,8 @@ public class Unit : MonoBehaviour
 
         cooldown = false;
         pursue = false;
+
+        target = null;
     }
 
 
@@ -49,8 +51,10 @@ public class Unit : MonoBehaviour
      */ 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Other: " + other.tag + " other: ", other);
         if(target == null && other.tag == TargetTeam)
         {
+            Debug.Log("Target AQUIRED");
             target = other.GetComponent<Unit>();
         }
     }
@@ -101,8 +105,7 @@ public class Unit : MonoBehaviour
         HP -= dmg;
         if(HP <= 0)
         {
-            Debug.Log("UNIT DESTROYED");
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
@@ -124,7 +127,7 @@ public class Unit : MonoBehaviour
         //Every update, if cooldown is on firing is over, there is a target, and that target is within range, then attack the target
         if (!cooldown && target != null && Vector3.Distance(target.transform.position, transform.position) < stats.Range)
         {
-            Fire();
+            StartCoroutine(Fire());
         }
 
         // if there is no target and pursue is true then set to false

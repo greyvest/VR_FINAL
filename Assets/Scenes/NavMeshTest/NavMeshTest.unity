@@ -1762,16 +1762,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1888545516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b758d0e63fd644d45b9d44108163b8d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 28182b2923a538b4db67b1e29c8c8730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2080396029}
   points:
   - {fileID: 164188780}
   - {fileID: 1737016112}
   - {fileID: 100594772}
   - {fileID: 9624999}
   - {fileID: 164085333}
-  ship: {fileID: 2080396029}
+  Enemies:
+  - {fileID: 174149788}
+  - {fileID: 1738907947}
+  - {fileID: 1060147140}
+  - {fileID: 752821149}
+  - {fileID: 1059502619}
+  targets: []
 --- !u!1 &1982227823
 GameObject:
   m_ObjectHideFlags: 0
