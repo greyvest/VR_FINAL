@@ -20,6 +20,7 @@ public class TestNavigationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(targets == null)
         {
             targets = new Vector3[Enemies.Length];
@@ -33,6 +34,7 @@ public class TestNavigationController : MonoBehaviour
                 Enemies[i].TravelTo(targets[i]);
             }
         }
+        */
         if(Input.GetKeyDown(KeyCode.Keypad1))
         {
             player.TravelTo(points[0].position);
@@ -54,6 +56,7 @@ public class TestNavigationController : MonoBehaviour
             player.TravelTo(points[4].position);
         }
 
+        /*
         for (int i = 0; i < Enemies.Length; i++)
         {
             if(Enemies[i].GetComponent<NavMeshAgent>().remainingDistance <= 0.01f)//.velocity.magnitude <= .5f)
@@ -62,5 +65,6 @@ public class TestNavigationController : MonoBehaviour
                 Enemies[i].TravelTo(targets[i]);
             }
         }
+        */
     }
 }

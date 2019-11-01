@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(SphereCollider)), RequireComponent(typeof(LineRenderer))]
 public class Unit : MonoBehaviour
 {
     [Tooltip("The tag of the opposing team")]
@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     UnitScriptableObject stats;
+    LineRenderer laser;
     NavMeshAgent agent;
 
     Unit target;
@@ -24,9 +25,16 @@ public class Unit : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = stats.Speed;
 
+        laser = GetComponent<LineRenderer>();
+        laser.enabled = false;
+
         SphereCollider atkRadius = GetComponent<SphereCollider>();
         atkRadius.radius = stats.Range;
         atkRadius.isTrigger = true;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = false;
 
         HP = stats.MaxHealth;
 
@@ -51,10 +59,12 @@ public class Unit : MonoBehaviour
      */ 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Other: " + other.tag + " other: ", other);
+        if(other.tag == TargetTeam && tag == "Player")
+        {
+            Debug.Log("TARGET: ", target);
+        }
         if(target == null && other.tag == TargetTeam)
         {
-            Debug.Log("Target AQUIRED");
             target = other.GetComponent<Unit>();
         }
     }
@@ -92,8 +102,16 @@ public class Unit : MonoBehaviour
     IEnumerator Fire()
     {
         cooldown = true;
+        laser.enabled = true;
+        for (int i = 0; i < 5; i++)
+        {
+            laser.SetPosition(0, transform.position);
+            laser.SetPosition(1, target.transform.position);
+            yield return new WaitForSeconds(.1f);
+        }
         target.TakeDamage(stats.Damage);
-        yield return new WaitForSeconds(stats.AtkSpeed);
+        laser.enabled = false;
+        yield return new WaitForSeconds(stats.AtkSpeed - .5f);
         cooldown = false;
     }
 
