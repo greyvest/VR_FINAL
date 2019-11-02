@@ -30,10 +30,14 @@ public class InputManager : MonoBehaviour
     GameObject startPointMarker;
     GameObject midPointMarker;
     GameObject endPointMarker;
-    GameObject topCornerMarker;
-    GameObject bottomCornerMarker;
+
+    GameObject startPointMarker2;
+    GameObject midPointMarker2;
+    GameObject endPointMarker2;
+
 
     public LineRenderer laserLineRenderer;
+    public LineRenderer laserLineRenderer2;
 
     SelectionManager SelectionManager;
 
@@ -42,6 +46,9 @@ public class InputManager : MonoBehaviour
     {
         laserLineRenderer.startWidth = .01f;
         laserLineRenderer.startColor = Color.red;
+        laserLineRenderer2.startWidth = .01f;
+        laserLineRenderer2.startColor = Color.cyan;
+
         Debug.Log(LayerMask.LayerToName(8));
     }
 
@@ -61,6 +68,19 @@ public class InputManager : MonoBehaviour
 
         laserLineRenderer.SetPosition(0, righthand.transform.position);
         laserLineRenderer.SetPosition(1, endPosition);
+
+        // Draw a debug ray from the left hand. 
+        Ray ray2 = new Ray(lefthand.transform.position, lefthand.transform.forward);
+        RaycastHit raycastHit2;
+        Vector3 endPosition2 = lefthand.transform.position + (60 * lefthand.transform.forward);
+
+        if (Physics.Raycast(ray2, out raycastHit2, 60))
+        {
+            endPosition2 = raycastHit2.point;
+        }
+
+        laserLineRenderer2.SetPosition(0, lefthand.transform.position);
+        laserLineRenderer2.SetPosition(1, endPosition2);
         #endregion draw debug ray
 
 
@@ -68,12 +88,15 @@ public class InputManager : MonoBehaviour
         {
             Debug.Log("40");
         }
+
+
         //Trigger pull on primary controller detection
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
+            Debug.Log("Pull Primary");
 
             RaycastHit hit;
-            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity ,layerMask))
+            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
                 if (hit.collider.gameObject.CompareTag("SelectionPlane"))
                 {
@@ -84,10 +107,10 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
-        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
         {
             RaycastHit hit;
-            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity,layerMask))
+            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
                 if (hit.collider.gameObject.CompareTag("SelectionPlane"))
                 {
@@ -95,7 +118,7 @@ public class InputManager : MonoBehaviour
                     Vector3 center = (hit.point + startPointMarker.transform.position) / 2f;
 
                     selectionPane1.transform.position = center;
-                        //new Vector3(center.x, center.y -1 , center.z);
+                    //new Vector3(center.x, center.y -1 , center.z);
 
 
                     float sizex = Mathf.Abs(startPointMarker.transform.position.x - hit.point.x);
@@ -106,80 +129,69 @@ public class InputManager : MonoBehaviour
 
                     selectionPane1.transform.localScale = new Vector3(sizex, selectionPane1.transform.localScale.y, sizez);
 
-                    
 
-                }
-            }
-           
 
-            //            selectionPane1.transform.rotation = new Quaternion(-Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, Camera.main.transform.rotation.z, Camera.main.transform.rotation.w);
-
-            /*RaycastHit hit;
-            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit))
-            {
-                if (hit.collider.gameObject.CompareTag("SelectionPlane"))
-                {
-                    SelectionManager.updateSquareR(hit.point);
-                }
-            }*/
-
-        }
-        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
-        {
-    //        Debug.Log("Released Trigger");
-            selectionPane1.gameObject.SetActive(false);
-            selectionPane1.transform.localScale = new Vector3(1, 1, 1);
-            Destroy(startPointMarker);
-            Destroy(midPointMarker);
-            /*
-            checkFlags();
-            RaycastHit hit;
-            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit))
-            {
-                if (hit.collider.gameObject.CompareTag("SelectionPlane"))
-                {
-                    SelectionManager.fireSquareR(hit.point);
-                }
-            }*/
-
-        }
-        //Secondary controller detection
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            Debug.Log("TriggerPull 2");
-            RaycastHit hit;
-            if (Physics.Raycast(lefthand.transform.position, lefthand.transform.forward, out hit))
-            {
-                if (hit.collider.gameObject.CompareTag("SelectionPlane"))
-                {
-                    SelectionManager.beginSquareL(hit.point);
-                }
-            }
-        }
-        if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            Debug.Log("Trigger is down 2");
-            RaycastHit hit;
-            if (Physics.Raycast(lefthand.transform.position, lefthand.transform.forward, out hit))
-            {
-                if (hit.collider.gameObject.CompareTag("SelectionPlane"))
-                {
-                    SelectionManager.updateSquareL(hit.point);
                 }
             }
         }
         if (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
         {
-            Debug.Log("Released Trigger 2");
+            selectionPane1.gameObject.SetActive(false);
+            selectionPane1.transform.localScale = new Vector3(1, 1, 1);
+            Destroy(startPointMarker);
+            Destroy(midPointMarker);
+        }
+
+
+        //Secondary controller detection
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            Debug.Log("Pull Secondary");
             RaycastHit hit;
-            if (Physics.Raycast(lefthand.transform.position, lefthand.transform.forward, out hit))
+            if (Physics.Raycast(lefthand.transform.position, lefthand.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
                 if (hit.collider.gameObject.CompareTag("SelectionPlane"))
                 {
-                    SelectionManager.fireSquareL(hit.point);
+                    startPointMarker2 = Instantiate(startPointPrefab, hit.point, combatPlane.transform.rotation);
+                    midPointMarker2 = Instantiate(startPointPrefab, hit.point, combatPlane.transform.rotation);
+                    selectionPane2.SetActive(true);
+                    Debug.Log("Spawned marker at " + hit.point);
                 }
             }
+        }
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(lefthand.transform.position, lefthand.transform.forward, out hit, Mathf.Infinity, layerMask))
+            {
+                if (hit.collider.gameObject.CompareTag("SelectionPlane"))
+                {
+                    midPointMarker2.transform.position = hit.point;
+                    Vector3 center = (hit.point + startPointMarker2.transform.position) / 2f;
 
+                    selectionPane2.transform.position = center;
+                    //new Vector3(center.x, center.y -1 , center.z);
+
+
+                    float sizex = Mathf.Abs(startPointMarker2.transform.position.x - hit.point.x);
+                    float sizez = Mathf.Abs(startPointMarker2.transform.position.z - hit.point.z);
+
+
+                    Debug.Log("SizeX:" + sizex + "   SizeZ: " + sizez + "   Hit point" + hit.point);
+
+                    selectionPane2.transform.localScale = new Vector3(sizex, selectionPane2.transform.localScale.y, sizez);
+
+
+
+                }
+            }
+        }
+        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            selectionPane2.gameObject.SetActive(false);
+            selectionPane2.transform.localScale = new Vector3(1, 1, 1);
+            Destroy(startPointMarker2);
+            Destroy(midPointMarker2);
         }
 
     }
