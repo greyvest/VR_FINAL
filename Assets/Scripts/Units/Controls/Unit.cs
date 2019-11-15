@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
-[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(SphereCollider)), RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(LineRenderer))]
 public class Unit : MonoBehaviour
 {
     [Tooltip("The tag of the opposing team")]
     public string TargetTeam;
+
+    public enum unitType { Small, Medium, Large};
+
+    public unitType uType;
+
+    private GameObject childAtkRadiusObject;
 
     [SerializeField]
     UnitScriptableObject stats;
     LineRenderer laser;
     NavMeshAgent agent;
 
-    Unit target;
+    public Unit target;
     float HP;
     bool cooldown;
     bool pursue;
@@ -28,9 +35,9 @@ public class Unit : MonoBehaviour
         laser = GetComponent<LineRenderer>();
         laser.enabled = false;
 
-        SphereCollider atkRadius = GetComponent<SphereCollider>();
-        atkRadius.radius = stats.Range;
-        atkRadius.isTrigger = true;
+        childAtkRadiusObject = GetComponentInChildren<ARO>().gameObject;
+
+
 
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
@@ -54,44 +61,7 @@ public class Unit : MonoBehaviour
     }
 
 
-    /*
-     *  When a potential target enters range (and there is no current target) attack the target
-     */ 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == TargetTeam && tag == "Player")
-        {
-            Debug.Log("TARGET: ", target);
-        }
-        if(target == null && other.tag == TargetTeam)
-        {
-            target = other.GetComponent<Unit>();
-        }
-    }
 
-    /*
-     * If there is no target and there is another potential target within range, then attack that target
-     */ 
-    private void OnTriggerStay(Collider other)
-    {
-        if(target == null && other.tag == TargetTeam)
-        {
-            target = other.GetComponent<Unit>();
-        }
-    }
-
-    /*
-     * Deactivates the target allowing for new targets to be selected:
-     * 
-     * TODO: Add a flag that causes unit to pursue the target if expressly chosen by player
-     */ 
-    private void OnTriggerExit(Collider other)
-    {
-        if(other == target)
-        {
-            target = null;
-        }
-    }
 
 
     /*

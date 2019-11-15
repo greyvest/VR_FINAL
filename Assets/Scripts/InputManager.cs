@@ -24,6 +24,8 @@ public class InputManager : MonoBehaviour
     public GameObject startPointPrefab;
     public GameObject startPointParent;
 
+    public SelectionManager SM;
+
     public GameObject combatPlane;
     int layerMask = 1 << 8;
 
@@ -35,11 +37,12 @@ public class InputManager : MonoBehaviour
     GameObject midPointMarker2;
     GameObject endPointMarker2;
 
+    private List<GameObject> rSelection;
+    private List<GameObject> lSelection;
 
     public LineRenderer laserLineRenderer;
     public LineRenderer laserLineRenderer2;
 
-    SelectionManager SelectionManager;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +87,8 @@ public class InputManager : MonoBehaviour
         #endregion draw debug ray
 
 
+
+
         if (OVRInput.Get(OVRInput.Button.One))
         {
             Debug.Log("40");
@@ -93,8 +98,7 @@ public class InputManager : MonoBehaviour
         //Trigger pull on primary controller detection
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
-            Debug.Log("Pull Primary");
-
+            rSelection = new List<GameObject>();
             RaycastHit hit;
             if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
@@ -103,7 +107,6 @@ public class InputManager : MonoBehaviour
                     startPointMarker = Instantiate(startPointPrefab, hit.point, combatPlane.transform.rotation);
                     midPointMarker = Instantiate(startPointPrefab, hit.point, combatPlane.transform.rotation);
                     selectionPane1.SetActive(true);
-                    Debug.Log("Spawned marker at " + hit.point);
                 }
             }
         }
@@ -125,8 +128,6 @@ public class InputManager : MonoBehaviour
                     float sizez = Mathf.Abs(startPointMarker.transform.position.z - hit.point.z);
 
 
-                    Debug.Log("SizeX:" + sizex + "   SizeZ: " + sizez + "   Hit point" + hit.point);
-
                     selectionPane1.transform.localScale = new Vector3(sizex, selectionPane1.transform.localScale.y, sizez);
 
 
@@ -138,6 +139,9 @@ public class InputManager : MonoBehaviour
         {
             selectionPane1.gameObject.SetActive(false);
             selectionPane1.transform.localScale = new Vector3(1, 1, 1);
+
+            rSelection = selectionPane1.GetComponent<cubeScript>().getFilteredSelection(checkFlags());
+            Debug.Log(rSelection[0].gameObject.name);
             Destroy(startPointMarker);
             Destroy(midPointMarker);
         }
@@ -146,16 +150,18 @@ public class InputManager : MonoBehaviour
         //Secondary controller detection
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
-            Debug.Log("Pull Secondary");
+            lSelection = new List<GameObject>();
+
             RaycastHit hit;
+
             if (Physics.Raycast(lefthand.transform.position, lefthand.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
+                
                 if (hit.collider.gameObject.CompareTag("SelectionPlane"))
                 {
                     startPointMarker2 = Instantiate(startPointPrefab, hit.point, combatPlane.transform.rotation);
                     midPointMarker2 = Instantiate(startPointPrefab, hit.point, combatPlane.transform.rotation);
                     selectionPane2.SetActive(true);
-                    Debug.Log("Spawned marker at " + hit.point);
                 }
             }
         }
@@ -177,7 +183,6 @@ public class InputManager : MonoBehaviour
                     float sizez = Mathf.Abs(startPointMarker2.transform.position.z - hit.point.z);
 
 
-                    Debug.Log("SizeX:" + sizex + "   SizeZ: " + sizez + "   Hit point" + hit.point);
 
                     selectionPane2.transform.localScale = new Vector3(sizex, selectionPane2.transform.localScale.y, sizez);
 
@@ -190,16 +195,48 @@ public class InputManager : MonoBehaviour
         {
             selectionPane2.gameObject.SetActive(false);
             selectionPane2.transform.localScale = new Vector3(1, 1, 1);
+            lSelection = selectionPane2.GetComponent<cubeScript>().getFilteredSelection(checkFlags());
+
             Destroy(startPointMarker2);
             Destroy(midPointMarker2);
         }
 
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger))
+        {
+            Debug.Log("Hand trigger");
+            RaycastHit hit;
+            if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity, layerMask))
+            {
+                foreach (GameObject unit in rSelection)
+                {
+                    Debug.Log("Asking unit " + unit.gameObject.name + "to move to " + hit.point);
+                    unit.GetComponent<Unit>().TravelTo(hit.point);
+                }
+            }
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(lefthand.transform.position, lefthand.transform.forward, out hit, Mathf.Infinity, layerMask))
+            {
+                foreach (GameObject unit in lSelection)
+                {
+                    unit.GetComponent<Unit>().TravelTo(hit.point);
+                }
+            }
+
+        }
+
     }
 
+    
+
     //This should check to see which face buttons are held down for filtering purposes
-    private void checkFlags()
+    private int checkFlags()
     {
-        throw new NotImplementedException();
+        //TODO: Implement this based on buttons
+        return 0;
     }
 }
 

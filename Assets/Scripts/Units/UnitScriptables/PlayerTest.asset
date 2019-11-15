@@ -15,6 +15,6 @@ MonoBehaviour:
   UnitName: TestUnity
   MaxHealth: 100
   Damage: 5
-  Speed: 3
-  Range: 5
+  Speed: 20
+  Range: 40
   AtkSpeed: 1
