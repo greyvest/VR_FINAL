@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 979994b9492974c4ab6a7b29e79d30ea, type: 3}
-  m_Name: PlayerTest
+  m_Name: playerLarge
   m_EditorClassIdentifier: 
   UnitName: TestUnity
   MaxHealth: 100
