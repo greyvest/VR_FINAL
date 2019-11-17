@@ -44,6 +44,11 @@ public class InputManager : MonoBehaviour
     public LineRenderer laserLineRenderer2;
 
 
+    bool A;
+    bool B;
+    bool X;
+    bool Y;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,12 +98,10 @@ public class InputManager : MonoBehaviour
             Application.LoadLevel(Application.loadedLevel);
         }
 
-
-        if (OVRInput.Get(OVRInput.Button.One))
-        {
-            Debug.Log("40");
-        }
-
+        A = OVRInput.Get(OVRInput.RawButton.A);
+        B = OVRInput.Get(OVRInput.RawButton.B);
+        X = OVRInput.Get(OVRInput.RawButton.X);
+        Y = OVRInput.Get(OVRInput.RawButton.Y);
 
         //Trigger pull on primary controller detection
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
@@ -144,9 +147,10 @@ public class InputManager : MonoBehaviour
         {
             selectionPane1.gameObject.SetActive(false);
             selectionPane1.transform.localScale = new Vector3(1, 1, 1);
-
-            rSelection = selectionPane1.GetComponent<cubeScript>().getFilteredSelection(checkFlags());
-            Debug.Log(rSelection[0].gameObject.name);
+            Debug.Log("A: " + OVRInput.GetDown(OVRInput.RawButton.A));
+            Debug.Log("B: " + OVRInput.GetDown(OVRInput.RawButton.B));
+            rSelection = selectionPane1.GetComponent<cubeScript>().getFilteredSelection(A, B);
+           
             Destroy(startPointMarker);
             Destroy(midPointMarker);
         }
@@ -200,7 +204,7 @@ public class InputManager : MonoBehaviour
         {
             selectionPane2.gameObject.SetActive(false);
             selectionPane2.transform.localScale = new Vector3(1, 1, 1);
-            lSelection = selectionPane2.GetComponent<cubeScript>().getFilteredSelection(checkFlags());
+            lSelection = selectionPane2.GetComponent<cubeScript>().getFilteredSelection(X, Y);
 
             Destroy(startPointMarker2);
             Destroy(midPointMarker2);
@@ -208,13 +212,13 @@ public class InputManager : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger))
         {
-            Debug.Log("Hand trigger");
+            
             RaycastHit hit;
             if (Physics.Raycast(righthand.transform.position, righthand.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
                 foreach (GameObject unit in rSelection)
                 {
-                    Debug.Log("Asking unit " + unit.gameObject.name + "to move to " + hit.point);
+                   
                     unit.GetComponent<Unit>().TravelTo(hit.point);
                 }
             }
@@ -235,13 +239,57 @@ public class InputManager : MonoBehaviour
 
     }
 
-    
+    private int checkFlagsL()
+    {
+        
+        if (OVRInput.GetDown(OVRInput.RawButton.X))
+        {
+            //X and Y
+            if (OVRInput.GetDown(OVRInput.RawButton.Y))
+            {
+                return 3;
+            }
+            //A not B
+            else
+            {
+                return 1;
+            }
+        }
+        //B not A
+        else if (OVRInput.GetDown(OVRInput.RawButton.Y))
+        {
+            return 2;
+        }
+        else
+            return 0;
+    }
+
+
 
     //This should check to see which face buttons are held down for filtering purposes
-    private int checkFlags()
+    private int checkFlagsR()
     {
-        //TODO: Implement this based on buttons
-        return 0;
+        Debug.Log("Running check flags R");
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            //A and B
+            if (OVRInput.GetDown(OVRInput.RawButton.B))
+            {
+                return 3;
+            }
+            //A not B
+            else
+            {
+                return 1;
+            }
+        }
+        //B not A
+        else if (OVRInput.GetDown(OVRInput.RawButton.B))
+        {
+            return 2;
+        }
+        else
+            return 0;
     }
 }
 
