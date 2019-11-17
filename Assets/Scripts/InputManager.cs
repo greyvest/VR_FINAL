@@ -88,6 +88,11 @@ public class InputManager : MonoBehaviour
 
 
 
+        if (OVRInput.Get(OVRInput.Button.Start))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
 
         if (OVRInput.Get(OVRInput.Button.One))
         {
