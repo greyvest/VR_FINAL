@@ -7,8 +7,7 @@ using System;
 [RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(LineRenderer))]
 public class Unit : MonoBehaviour
 {
-    [Tooltip("The tag of the opposing team")]
-    public string TargetTeam;
+    public GameManager.Teams Team;
 
     public enum unitType { Small, Medium, Large};
 
@@ -25,6 +24,8 @@ public class Unit : MonoBehaviour
     float HP;
     bool cooldown;
     bool pursue;
+
+    Vector3 destination;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +52,11 @@ public class Unit : MonoBehaviour
         target = null;
     }
 
+    public Vector3 MovingTo()
+    {
+        return destination;
+    }
+
 
     /*
      * NAVMESH tool to traverse the level 
@@ -58,6 +64,7 @@ public class Unit : MonoBehaviour
     public void TravelTo(Vector3 point)
     {
         agent.SetDestination(point);
+        destination = point;
     }
 
 

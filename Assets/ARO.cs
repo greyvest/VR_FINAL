@@ -6,14 +6,26 @@ public class ARO : MonoBehaviour
 {
 
     public float range;
-    string TargetTeam;
+    Unit unit;
+    GameManager.Teams TargetTeam;
+
     // Start is called before the first frame update
     void Start()
     {
         SphereCollider atkRadius = GetComponent<SphereCollider>();
         atkRadius.radius = range;
         atkRadius.isTrigger = true;
-        TargetTeam = this.gameObject.GetComponentInParent<Unit>().TargetTeam;
+        unit = gameObject.GetComponentInParent<Unit>();
+
+        if(unit.Team == GameManager.Teams.Enemy)
+        {
+            TargetTeam = GameManager.Teams.Player;
+        }
+        else
+        {
+            TargetTeam = GameManager.Teams.Enemy;
+        }
+        
     }
 
     // Update is called once per frame
@@ -27,14 +39,10 @@ public class ARO : MonoBehaviour
  */
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == TargetTeam && tag == "Player")
+        Unit other_unit = other.GetComponent<Unit>();
+        if(other_unit != null && other_unit.Team == TargetTeam && unit.target == null)
         {
-            //Debug.Log("TARGET: ", target);
-        }
-        //TODO: Please for the love find a more effecient way to do this tim. It hurts my soul
-        if (this.GetComponentInParent<Unit>().target == null && other.tag == TargetTeam)
-        {
-            this.GetComponentInParent<Unit>().target = other.GetComponent<Unit>();
+            unit.target = other_unit;
         }
     }
 
@@ -43,9 +51,10 @@ public class ARO : MonoBehaviour
      */
     private void OnTriggerStay(Collider other)
     {
-        if (this.GetComponentInParent<Unit>().target == null && other.tag == TargetTeam)
+        Unit other_unit = other.GetComponent<Unit>();
+        if (other_unit != null && other_unit.Team == TargetTeam && unit.target == null)
         {
-            this.GetComponentInParent<Unit>().target = other.GetComponent<Unit>();
+            unit.target = other.GetComponent<Unit>();
         }
     }
 
@@ -56,9 +65,10 @@ public class ARO : MonoBehaviour
      */
     private void OnTriggerExit(Collider other)
     {
-        if (other == this.GetComponentInParent<Unit>().target)
+        Unit other_unit = other.GetComponent<Unit>();
+        if (other_unit != null && other_unit == unit.target)
         {
-            this.GetComponentInParent<Unit>().target = null;
+            unit.target = null;
         }
     }
 }
