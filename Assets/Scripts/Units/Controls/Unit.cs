@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(LineRenderer))]
+public class UnitEvent : UnityEvent<Unit> { }
+
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(LineRenderer)), RequireComponent(typeof(NavMeshObstacle))]
 public class Unit : MonoBehaviour
 {
     public GameManager.Teams Team;
@@ -14,6 +17,8 @@ public class Unit : MonoBehaviour
     public unitType uType;
 
     private GameObject childAtkRadiusObject;
+
+    UnitEvent unitDead;
 
     [SerializeField]
     UnitScriptableObject stats;
@@ -50,6 +55,10 @@ public class Unit : MonoBehaviour
         pursue = false;
 
         target = null;
+
+        unitDead = new UnitEvent();
+        unitDead.AddListener(AIController.Instance.UnRegisterUnit);
+        AIController.Instance.RegisterUnit(this);
     }
 
     public Vector3 MovingTo()
@@ -100,6 +109,7 @@ public class Unit : MonoBehaviour
         HP -= dmg;
         if(HP <= 0)
         {
+            unitDead.Invoke(this);
             Destroy(gameObject);
         }
     }
