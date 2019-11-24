@@ -39,6 +39,14 @@ public class ARO : MonoBehaviour
  */
     private void OnTriggerEnter(Collider other)
     {
+        MotherShip mother = other.GetComponent<MotherShip>();
+        if(mother != null && mother.Team == TargetTeam)
+        {
+            unit.MotherTarget = mother;
+            unit.target = null;
+            return;
+        }
+
         Unit other_unit = other.GetComponent<Unit>();
         if(other_unit != null && other_unit.Team == TargetTeam && unit.target == null)
         {
@@ -52,7 +60,7 @@ public class ARO : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         Unit other_unit = other.GetComponent<Unit>();
-        if (other_unit != null && other_unit.Team == TargetTeam && unit.target == null)
+        if (other_unit != null && other_unit.Team == TargetTeam && unit.target == null && unit.MotherTarget == null)
         {
             unit.target = other.GetComponent<Unit>();
         }
@@ -65,6 +73,13 @@ public class ARO : MonoBehaviour
      */
     private void OnTriggerExit(Collider other)
     {
+        MotherShip mother = other.GetComponent<MotherShip>();
+        if (mother != null && mother == unit.MotherTarget)
+        {
+            unit.MotherTarget = null;
+            return;
+        }
+
         Unit other_unit = other.GetComponent<Unit>();
         if (other_unit != null && other_unit == unit.target)
         {

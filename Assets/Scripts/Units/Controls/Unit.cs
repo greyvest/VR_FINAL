@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour
     NavMeshAgent agent;
 
     public Unit target;
+    public MotherShip MotherTarget;
     float HP;
     bool cooldown;
     bool pursue;
@@ -55,6 +56,7 @@ public class Unit : MonoBehaviour
         pursue = false;
 
         target = null;
+        MotherTarget = null;
 
         unitDead = new UnitEvent();
         unitDead.AddListener(AIController.Instance.UnRegisterUnit);
@@ -77,9 +79,6 @@ public class Unit : MonoBehaviour
     }
 
 
-
-
-
     /*
      * Activates cooldown flag to prevent units from firing between cooldowns
      * deals damage to the target
@@ -95,7 +94,15 @@ public class Unit : MonoBehaviour
             laser.SetPosition(1, target.transform.position);
             yield return new WaitForSeconds(.1f);
         }
-        target.TakeDamage(stats.Damage);
+        if(MotherTarget != null)
+        {
+            MotherTarget.TakeDamage(stats.Damage);
+        }
+        else
+        {
+            target.TakeDamage(stats.Damage);
+        }
+        
         laser.enabled = false;
         yield return new WaitForSeconds(stats.AtkSpeed - .5f);
         cooldown = false;
@@ -120,6 +127,13 @@ public class Unit : MonoBehaviour
         pursue = true;
     }
 
+    public void SetTarget(MotherShip mother)
+    {
+        target = null;
+        pursue = false;
+        MotherTarget = mother;
+    }
+
     private void Update()
     {
         
@@ -130,7 +144,7 @@ public class Unit : MonoBehaviour
         }
 
         //Every update, if cooldown is on firing is over, there is a target, and that target is within range, then attack the target
-        if (!cooldown && target != null && Vector3.Distance(target.transform.position, transform.position) < stats.Range)
+        if (!cooldown && (target != null && Vector3.Distance(target.transform.position, transform.position) < stats.Range || MotherTarget != null))
         {
             StartCoroutine(Fire());
         }

@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void GameOver(Teams loser)
+    { }
+
     // Update is called once per frame
     void Update()
     {

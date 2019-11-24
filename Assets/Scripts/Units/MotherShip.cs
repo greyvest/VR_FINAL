@@ -17,12 +17,13 @@ public class MotherShip : MonoBehaviour
     void Start()
     {
         DestroyedEvent = new GameManager.TeamsEvent();
+        DestroyedEvent.AddListener(GameManager.Instance.GameOver);
     }
 
     /*
      * Used by units to destroy the mothership and win
      */ 
-    void TakeDamage(float dmg)
+    public void TakeDamage(float dmg)
     {
         CurrentHealth -= dmg;
         if (CurrentHealth <= 0)
