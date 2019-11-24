@@ -59,12 +59,23 @@ public class AIController : MonoBehaviour
     {
         foreach (Unit unit in EnemyUnits)
         {
-            ChooseTarget(unit);
+            Vector3 position = unit.transform.position;
+            foreach(Unit player in PlayerUnits)
+            {
+                if(Vector3.Distance(player.transform.position, unit.transform.position) <= unit.GetStats.Range/2)
+                {
+                    Vector3 difference = player.transform.position - unit.transform.position;
+                    position -= difference;
+                }
+            }
+            if (position == unit.transform.position)
+            {
+                unit.TravelTo(PlayerMother.transform.position);
+            }
+            else
+            {
+                unit.TravelTo(position);
+            }
         }
-    }
-
-    private void ChooseTarget(Unit unit)
-    {
-
     }
 }

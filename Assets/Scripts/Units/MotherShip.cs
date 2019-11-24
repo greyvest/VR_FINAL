@@ -9,7 +9,14 @@ public class MotherShip : MonoBehaviour
 
     [SerializeField]
     float MaxHealth;
-    float CurrentHealth;
+
+    float currentHelth;
+    
+    public float HP
+    {
+        get { return currentHelth; }
+        private set { currentHelth = value; }
+    }
 
     GameManager.TeamsEvent DestroyedEvent;
 
@@ -18,6 +25,7 @@ public class MotherShip : MonoBehaviour
     {
         DestroyedEvent = new GameManager.TeamsEvent();
         DestroyedEvent.AddListener(GameManager.Instance.GameOver);
+        HP = MaxHealth;
     }
 
     /*
@@ -25,8 +33,8 @@ public class MotherShip : MonoBehaviour
      */ 
     public void TakeDamage(float dmg)
     {
-        CurrentHealth -= dmg;
-        if (CurrentHealth <= 0)
+        HP -= dmg;
+        if (HP <= 0)
         {
             DestroyedEvent.Invoke(Team);
             Destroy(gameObject);

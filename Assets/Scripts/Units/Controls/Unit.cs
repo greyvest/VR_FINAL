@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class UnitEvent : UnityEvent<Unit> { }
 
-[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(LineRenderer)), RequireComponent(typeof(NavMeshObstacle))]
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(LineRenderer))]
 public class Unit : MonoBehaviour
 {
     public GameManager.Teams Team;
@@ -24,6 +24,8 @@ public class Unit : MonoBehaviour
     UnitScriptableObject stats;
     LineRenderer laser;
     NavMeshAgent agent;
+
+    public UnitScriptableObject GetStats{ get {return stats; }}
 
     public Unit target;
     public MotherShip MotherTarget;
@@ -74,6 +76,7 @@ public class Unit : MonoBehaviour
      */ 
     public void TravelTo(Vector3 point)
     {
+        pursue = false;
         agent.SetDestination(point);
         destination = point;
     }
@@ -91,7 +94,14 @@ public class Unit : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             laser.SetPosition(0, transform.position);
-            laser.SetPosition(1, target.transform.position);
+            if(MotherTarget != null)
+            {
+                laser.SetPosition(1, MotherTarget.transform.position);
+            }
+            else
+            {
+                laser.SetPosition(1, target.transform.position);
+            }
             yield return new WaitForSeconds(.1f);
         }
         if(MotherTarget != null)
@@ -136,7 +146,7 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        
+     
         //If we should pursue the target, and they are more than half our radius away, then move towards them
         if (pursue && Vector3.Distance(target.transform.position, transform.position) > stats.Range / 2)
         {

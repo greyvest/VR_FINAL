@@ -13,11 +13,12 @@ public class ARO : MonoBehaviour
     void Start()
     {
         SphereCollider atkRadius = GetComponent<SphereCollider>();
-        atkRadius.radius = range;
-        atkRadius.isTrigger = true;
+        
         unit = gameObject.GetComponentInParent<Unit>();
+        atkRadius.radius = unit.GetStats.Range;
+        atkRadius.isTrigger = true;
 
-        if(unit.Team == GameManager.Teams.Enemy)
+        if (unit.Team == GameManager.Teams.Enemy)
         {
             TargetTeam = GameManager.Teams.Player;
         }

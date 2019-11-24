@@ -265,7 +265,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8571676587681942891}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.49999997
+  m_Radius: 1.5
   m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
@@ -306,10 +306,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71b4cd48dcf95a439eaa4d939137e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetTeam: Enemy
+  Team: 0
   uType: 0
   stats: {fileID: 11400000, guid: 132ca31c1c2ce2d46a79420cf56f7af7, type: 2}
   target: {fileID: 0}
+  MotherTarget: {fileID: 0}
 --- !u!120 &8571676587681942893
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -317,7 +318,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8571676587681942891}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

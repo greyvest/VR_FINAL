@@ -16,5 +16,5 @@ MonoBehaviour:
   MaxHealth: 100
   Damage: 5
   Speed: 20
-  Range: 40
+  Range: 10
   AtkSpeed: 1
