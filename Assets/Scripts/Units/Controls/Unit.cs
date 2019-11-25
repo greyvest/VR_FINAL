@@ -34,6 +34,9 @@ public class Unit : MonoBehaviour
 
     Vector3 destination;
 
+    [SerializeField]
+    GameObject Explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -108,6 +111,7 @@ public class Unit : MonoBehaviour
         if(HP <= 0)
         {
             unitDead.Invoke(this);
+            Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

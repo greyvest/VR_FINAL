@@ -11,6 +11,9 @@ public class MotherShip : MonoBehaviour
     float MaxHealth;
     [SerializeField]
     float currentHelth;
+
+    [SerializeField]
+    GameObject Explosion;
     
     public float HP
     {
@@ -37,6 +40,7 @@ public class MotherShip : MonoBehaviour
         if (HP <= 0)
         {
             DestroyedEvent.Invoke(Team);
+            Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
