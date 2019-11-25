@@ -9,7 +9,7 @@ public class MotherShip : MonoBehaviour
 
     [SerializeField]
     float MaxHealth;
-
+    [SerializeField]
     float currentHelth;
     
     public float HP

@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class UnitEvent : UnityEvent<Unit> { }
 
-[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody))]
 public class Unit : MonoBehaviour
 {
     public GameManager.Teams Team;
@@ -22,7 +22,6 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     UnitScriptableObject stats;
-    LineRenderer laser;
     NavMeshAgent agent;
 
     public UnitScriptableObject GetStats{ get {return stats; }}
@@ -40,9 +39,6 @@ public class Unit : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = stats.Speed;
-
-        laser = GetComponent<LineRenderer>();
-        laser.enabled = false;
 
         childAtkRadiusObject = GetComponentInChildren<ARO>().gameObject;
 
@@ -90,20 +86,6 @@ public class Unit : MonoBehaviour
     IEnumerator Fire()
     {
         cooldown = true;
-        laser.enabled = true;
-        for (int i = 0; i < 5; i++)
-        {
-            laser.SetPosition(0, transform.position);
-            if(MotherTarget != null)
-            {
-                laser.SetPosition(1, MotherTarget.transform.position);
-            }
-            else
-            {
-                laser.SetPosition(1, target.transform.position);
-            }
-            yield return new WaitForSeconds(.1f);
-        }
         if(MotherTarget != null)
         {
             MotherTarget.TakeDamage(stats.Damage);
@@ -113,8 +95,7 @@ public class Unit : MonoBehaviour
             target.TakeDamage(stats.Damage);
         }
         
-        laser.enabled = false;
-        yield return new WaitForSeconds(stats.AtkSpeed - .5f);
+        yield return new WaitForSeconds(stats.AtkSpeed);
         cooldown = false;
     }
 
