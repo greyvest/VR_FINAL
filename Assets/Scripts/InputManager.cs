@@ -43,6 +43,10 @@ public class InputManager : MonoBehaviour
     public LineRenderer laserLineRenderer;
     public LineRenderer laserLineRenderer2;
 
+    public Material allMat;
+    public Material smallMat;
+    public Material midMat;
+    public Material largeMat;
 
     bool A;
     bool B;
@@ -98,10 +102,25 @@ public class InputManager : MonoBehaviour
             Application.LoadLevel(Application.loadedLevel);
         }
 
-        A = OVRInput.Get(OVRInput.RawButton.A);
-        B = OVRInput.Get(OVRInput.RawButton.B);
-        X = OVRInput.Get(OVRInput.RawButton.X);
-        Y = OVRInput.Get(OVRInput.RawButton.Y);
+       
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            A = !A;
+        }
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
+        {
+            B = !B; 
+        }
+        if (OVRInput.GetDown(OVRInput.RawButton.X))
+        {
+            X = !X;
+        }
+        if (OVRInput.GetDown(OVRInput.RawButton.Y))
+        {
+            Y = !Y;
+        }
+
 
         //Trigger pull on primary controller detection
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
@@ -131,6 +150,7 @@ public class InputManager : MonoBehaviour
                     selectionPane1.transform.position = center;
                     //new Vector3(center.x, center.y -1 , center.z);
 
+                    setSelectionMaterial(selectionPane1, A, B);
 
                     float sizex = Mathf.Abs(startPointMarker.transform.position.x - hit.point.x);
                     float sizez = Mathf.Abs(startPointMarker.transform.position.z - hit.point.z);
@@ -186,6 +206,7 @@ public class InputManager : MonoBehaviour
 
                     selectionPane2.transform.position = center;
                     //new Vector3(center.x, center.y -1 , center.z);
+                    setSelectionMaterial(selectionPane2, X, Y);
 
 
                     float sizex = Mathf.Abs(startPointMarker2.transform.position.x - hit.point.x);
@@ -237,6 +258,29 @@ public class InputManager : MonoBehaviour
 
         }
 
+    }
+
+    private void setSelectionMaterial(GameObject selectionPane, bool a, bool b)
+    {
+        if (a)
+        {
+            if (b)
+            {
+                selectionPane.GetComponent<MeshRenderer>().material = largeMat;
+            }
+            else
+            {
+                selectionPane.GetComponent<MeshRenderer>().material = smallMat;
+            }
+        }
+        else if (b)
+        {
+            selectionPane.GetComponent<MeshRenderer>().material = midMat;
+        }
+        else
+        {
+            selectionPane.GetComponent<MeshRenderer>().material = allMat;
+        }
     }
 
     private int checkFlagsL()
