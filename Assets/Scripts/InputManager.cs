@@ -48,7 +48,7 @@ public class InputManager : MonoBehaviour
     public Material midMat;
     public Material largeMat;
 
-    bool A;
+    bool A = true;
     bool B;
     bool X;
     bool Y;
