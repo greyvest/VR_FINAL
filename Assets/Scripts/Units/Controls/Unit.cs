@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
 
     private GameObject childAtkRadiusObject;
 
-    UnitEvent unitDead;
+    public UnitEvent unitDead;
 
     [SerializeField]
     UnitScriptableObject stats;
@@ -30,7 +30,8 @@ public class Unit : MonoBehaviour
     public MotherShip MotherTarget;
     float HP;
     bool cooldown;
-    bool pursue;
+    public bool pursue;
+    bool TargetMother;
 
     Vector3 destination;
 
@@ -55,6 +56,7 @@ public class Unit : MonoBehaviour
 
         cooldown = false;
         pursue = false;
+        TargetMother = false;
 
         target = null;
         MotherTarget = null;
@@ -69,7 +71,11 @@ public class Unit : MonoBehaviour
         return destination;
     }
 
-
+    public void TargetDead(Unit u)
+    {
+        target = null;
+        pursue = false;
+    }
     /*
      * NAVMESH tool to traverse the level 
      */ 
@@ -120,13 +126,21 @@ public class Unit : MonoBehaviour
     {
         target = unit;
         pursue = true;
+        TravelTo(unit.transform.position);
     }
 
     public void SetTarget(MotherShip mother)
     {
         target = null;
         pursue = false;
-        MotherTarget = mother;
+        //MotherTarget = mother;
+        TargetMother = true;
+        TravelTo(mother.transform.position);
+    }
+
+    public bool HasTarget()
+    {
+        return (pursue || TargetMother);
     }
 
     private void Update()

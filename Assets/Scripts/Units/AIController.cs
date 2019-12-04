@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +14,10 @@ public class AIController : MonoBehaviour
     MotherShip PlayerMother;
     [SerializeField]
     MotherShip EnemyMother;
-    
+    System.Random rng;
+
+    [SerializeField,Range(0,10)]
+    int MotherBias = 3;
        
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class AIController : MonoBehaviour
         Instance = this;
         EnemyUnits = new List<Unit>();
         PlayerUnits = new List<Unit>();
+        rng = new System.Random();
     }
 
     public void RegisterUnit(Unit u)
@@ -57,6 +60,7 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         foreach (Unit unit in EnemyUnits)
         {
             Vector3 position = unit.transform.position;
@@ -75,6 +79,27 @@ public class AIController : MonoBehaviour
             else
             {
                 unit.TravelTo(position);
+            }
+        }
+        */
+        foreach (Unit unit in EnemyUnits)
+        {
+            if (!unit.HasTarget())
+            {
+
+                int targetIndex = rng.Next(0, PlayerUnits.Count + MotherBias);
+                Debug.Log(unit.gameObject.name);
+                Debug.Log(targetIndex);
+                if (targetIndex >= PlayerUnits.Count)
+                {
+                    Debug.Log("MOTHER");
+                    unit.SetTarget(PlayerMother);
+                }
+                else
+                {
+                    Debug.Log(PlayerUnits[targetIndex].transform.position);
+                    unit.SetTarget(PlayerUnits[targetIndex]);
+                }
             }
         }
     }

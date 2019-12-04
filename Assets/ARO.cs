@@ -49,9 +49,10 @@ public class ARO : MonoBehaviour
         }
 
         Unit other_unit = other.GetComponent<Unit>();
-        if(other_unit != null && other_unit.Team == TargetTeam && unit.target == null)
+        if(other_unit != null && other_unit.Team == TargetTeam && unit.target == null && !unit.pursue)
         {
             unit.target = other_unit;
+            other_unit.unitDead.AddListener(unit.TargetDead);
         }
     }
 
@@ -61,9 +62,11 @@ public class ARO : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         Unit other_unit = other.GetComponent<Unit>();
-        if (other_unit != null && other_unit.Team == TargetTeam && unit.target == null && unit.MotherTarget == null)
+        if (other_unit != null && other_unit.Team == TargetTeam && unit.target == null && unit.MotherTarget == null && !unit.pursue)
         {
-            unit.target = other.GetComponent<Unit>();
+            unit.target = other_unit;
+            other_unit.unitDead.AddListener(unit.TargetDead);
+
         }
     }
 
@@ -85,6 +88,7 @@ public class ARO : MonoBehaviour
         if (other_unit != null && other_unit == unit.target)
         {
             unit.target = null;
+            other_unit.unitDead.RemoveListener(unit.TargetDead);
         }
     }
 }
