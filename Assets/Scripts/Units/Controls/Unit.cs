@@ -38,6 +38,15 @@ public class Unit : MonoBehaviour
     [SerializeField]
     GameObject Explosion;
 
+    public GameObject LaserPrefab;
+    [SerializeField, Range(-5, 0)]
+    int MinimumLaserOffset;
+    [SerializeField, Range(0, 5)]
+    int MaximumLaserOffset;
+    [SerializeField]
+    float laserSpeed = 1f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,17 +103,49 @@ public class Unit : MonoBehaviour
     IEnumerator Fire()
     {
         cooldown = true;
+        bool shouldTarget = false;
+        Vector3 laserTarget = Vector3.zero;
         if(MotherTarget != null)
         {
+            laserTarget = MotherTarget.transform.position;
             MotherTarget.TakeDamage(stats.Damage);
+            shouldTarget = true;
         }
         else if (target != null)
         {
+            laserTarget = target.transform.position;
             target.TakeDamage(stats.Damage);
+            shouldTarget = true;
         }
         
+        if (shouldTarget)
+        {
+            System.Random rng = new System.Random();
+            float xOffset = rng.Next(MinimumLaserOffset, MaximumLaserOffset) + laserTarget.x;
+            float yOffset = rng.Next(MinimumLaserOffset, MaximumLaserOffset) + laserTarget.y; 
+            float zOffset = rng.Next(MinimumLaserOffset, MaximumLaserOffset) + laserTarget.z;
+            laserTarget.Set(xOffset, yOffset, zOffset);
+            StartCoroutine(LaserAnimation(laserTarget));
+        }
+
         yield return new WaitForSeconds(stats.AtkSpeed);
         cooldown = false;
+    }
+
+    IEnumerator LaserAnimation(Vector3 dest)
+    {
+        Vector3 startPos = transform.position;
+        //GameObject laser = Instantiate(LaserPrefab, startPos, transform.rotation);
+        GameObject laser = Instantiate(LaserPrefab, transform);
+        laser.transform.LookAt(dest);
+        float t = 0f;
+        while(t <= 1f)
+        {
+            t += Time.deltaTime;
+            laser.transform.position = Vector3.Lerp(startPos, dest, t);
+            yield return null;
+        }
+        Destroy(laser);
     }
 
     public void AttackTarget()
