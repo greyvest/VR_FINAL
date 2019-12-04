@@ -70,21 +70,26 @@ public class ARO : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         Unit other_unit = other.GetComponent<Unit>();
-        if (other_unit == null)
-        {
-            return;
-        }
+        MotherShip other_mother = other.GetComponent<MotherShip>();
 
-        else if (unit.hasTarget)
+        if (unit.hasTarget && other_unit != null & other_mother != null)
         {
-            if(other_unit == unit.target)
+            if(other_unit == unit.target || other_mother == unit.MotherTarget)
+            {
                 unit.AttackTarget();
+            }
         }
-        else if(other_unit.Team == TargetTeam)
+        else if (other_unit != null && other_unit.Team == TargetTeam)
         {
             unit.hasTarget = true;
             unit.target = other_unit;
             other_unit.unitDead.AddListener(unit.TargetDead);
+            unit.AttackTarget();
+        }
+        else if (other_mother != null && other_mother.Team == TargetTeam)
+        {
+            unit.hasTarget = true;
+            unit.MotherTarget = other_mother;
             unit.AttackTarget();
         }
     }

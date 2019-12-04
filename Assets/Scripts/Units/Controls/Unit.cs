@@ -143,6 +143,7 @@ public class Unit : MonoBehaviour
         target = null;
         pursue = false;
         hasTarget = true;
+        MotherTarget = mother;
         TravelTo(mother.transform.position);
     }
 

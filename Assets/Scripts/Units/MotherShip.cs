@@ -15,6 +15,7 @@ public class MotherShip : MonoBehaviour
     [SerializeField]
     GameObject Explosion;
     
+    
     public float HP
     {
         get { return currentHelth; }
@@ -36,7 +37,7 @@ public class MotherShip : MonoBehaviour
      */ 
     public void TakeDamage(float dmg)
     {
-        HP -= dmg;
+        HP = HP - dmg;
         if (HP <= 0)
         {
             DestroyedEvent.Invoke(Team);
