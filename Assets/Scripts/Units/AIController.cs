@@ -56,49 +56,10 @@ public class AIController : MonoBehaviour
             PlayerUnits.Remove(u);
         }
     }
-    bool start = true;
-    bool temp = true;
-
-    IEnumerator TEST()
-    {
-        yield return new WaitForSeconds(10);
-        temp = false;
-    }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        foreach (Unit unit in EnemyUnits)
-        {
-            Vector3 position = unit.transform.position;
-            foreach(Unit player in PlayerUnits)
-            {
-                if(Vector3.Distance(player.transform.position, unit.transform.position) <= unit.GetStats.Range/2)
-                {
-                    Vector3 difference = player.transform.position - unit.transform.position;
-                    position -= difference;
-                }
-            }
-            if (position == unit.transform.position)
-            {
-                unit.TravelTo(PlayerMother.transform.position);
-            }
-            else
-            {
-                unit.TravelTo(position);
-            }
-        }
-        */
-        if(temp)
-        {
-            if (start)
-            {
-                start = false;
-                StartCoroutine(TEST());
-            }
-            return;
-        }
         foreach (Unit unit in EnemyUnits)
         {
             if (!unit.hasTarget)

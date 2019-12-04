@@ -73,7 +73,7 @@ public class Unit : MonoBehaviour
     {
         target = null;
         pursue = false;
-        hasTarget = true;
+        hasTarget = false;
     }
     /*
      * NAVMESH tool to traverse the level 
@@ -117,7 +117,7 @@ public class Unit : MonoBehaviour
 
     /*
      * decreases the Unit's HP by dmg. Destroys the unit if HP <= 0
-     */ 
+     */
     public void TakeDamage(float dmg)
     {
         HP -= dmg;
@@ -134,6 +134,7 @@ public class Unit : MonoBehaviour
         target = unit;
         pursue = true;
         hasTarget = true;
+        unit.unitDead.AddListener(TargetDead);
         TravelTo(unit.transform.position);
     }
 
@@ -152,24 +153,5 @@ public class Unit : MonoBehaviour
         {
             TravelTo(target.transform.position);
         }
-        /*
-        //If we should pursue the target, and they are more than half our radius away, then move towards them
-        if (pursue && Vector3.Distance(target.transform.position, transform.position) > stats.Range / 2)
-        {
-            TravelTo(target.transform.position);
-        }
-
-        //Every update, if cooldown is on firing is over, there is a target, and that target is within range, then attack the target
-        if (!cooldown && (target != null && Vector3.Distance(target.transform.position, transform.position) < stats.Range || MotherTarget != null))
-        {
-            StartCoroutine(Fire());
-        }
-
-        // if there is no target and pursue is true then set to false
-        if (target == null && pursue)
-        {
-            pursue = false;
-        }
-        */
     }
 }
