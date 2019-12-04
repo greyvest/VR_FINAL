@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
 {
     public GameManager.Teams Team;
 
-    public enum unitType { Small, Medium, Large};
+    public enum unitType { Small, Medium, Large };
 
     public unitType uType;
 
@@ -24,15 +24,15 @@ public class Unit : MonoBehaviour
     UnitScriptableObject stats;
     NavMeshAgent agent;
 
-    public UnitScriptableObject GetStats{ get {return stats; }}
+    public UnitScriptableObject GetStats { get { return stats; } }
 
     public Unit target;
     public MotherShip MotherTarget;
     float HP;
     bool cooldown;
-    public bool pursue;
-    bool TargetMother;
+    bool pursue;
 
+    public bool hasTarget;
     Vector3 destination;
 
     [SerializeField]
@@ -46,8 +46,6 @@ public class Unit : MonoBehaviour
 
         childAtkRadiusObject = GetComponentInChildren<ARO>().gameObject;
 
-
-
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         rb.useGravity = false;
@@ -56,7 +54,7 @@ public class Unit : MonoBehaviour
 
         cooldown = false;
         pursue = false;
-        TargetMother = false;
+        hasTarget = false;
 
         target = null;
         MotherTarget = null;
@@ -75,6 +73,7 @@ public class Unit : MonoBehaviour
     {
         target = null;
         pursue = false;
+        hasTarget = true;
     }
     /*
      * NAVMESH tool to traverse the level 
@@ -99,13 +98,21 @@ public class Unit : MonoBehaviour
         {
             MotherTarget.TakeDamage(stats.Damage);
         }
-        else
+        else if (target != null)
         {
             target.TakeDamage(stats.Damage);
         }
         
         yield return new WaitForSeconds(stats.AtkSpeed);
         cooldown = false;
+    }
+
+    public void AttackTarget()
+    {
+        if(!cooldown)
+        {
+            StartCoroutine(Fire());
+        }
     }
 
     /*
@@ -126,6 +133,7 @@ public class Unit : MonoBehaviour
     {
         target = unit;
         pursue = true;
+        hasTarget = true;
         TravelTo(unit.transform.position);
     }
 
@@ -133,19 +141,18 @@ public class Unit : MonoBehaviour
     {
         target = null;
         pursue = false;
-        //MotherTarget = mother;
-        TargetMother = true;
+        hasTarget = true;
         TravelTo(mother.transform.position);
-    }
-
-    public bool HasTarget()
-    {
-        return (pursue || TargetMother);
     }
 
     private void Update()
     {
-     
+
+        if (pursue && Vector3.Distance(target.transform.position, transform.position) > stats.Range / 2)
+        {
+            TravelTo(target.transform.position);
+        }
+        /*
         //If we should pursue the target, and they are more than half our radius away, then move towards them
         if (pursue && Vector3.Distance(target.transform.position, transform.position) > stats.Range / 2)
         {
@@ -163,5 +170,6 @@ public class Unit : MonoBehaviour
         {
             pursue = false;
         }
+        */
     }
 }

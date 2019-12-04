@@ -40,19 +40,27 @@ public class ARO : MonoBehaviour
  */
     private void OnTriggerEnter(Collider other)
     {
+        if(unit.hasTarget)
+        {
+            return;
+        }
+
         MotherShip mother = other.GetComponent<MotherShip>();
-        if(mother != null && mother.Team == TargetTeam)
+        if (mother != null && mother.Team == TargetTeam)
         {
             unit.MotherTarget = mother;
-            unit.target = null;
+            unit.hasTarget = true;
+            unit.AttackTarget();
             return;
         }
 
         Unit other_unit = other.GetComponent<Unit>();
-        if(other_unit != null && other_unit.Team == TargetTeam && unit.target == null && !unit.pursue)
+        if(other_unit != null && other_unit.Team == TargetTeam)
         {
+            unit.hasTarget = true;
             unit.target = other_unit;
             other_unit.unitDead.AddListener(unit.TargetDead);
+            unit.AttackTarget();
         }
     }
 
@@ -62,11 +70,22 @@ public class ARO : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         Unit other_unit = other.GetComponent<Unit>();
-        if (other_unit != null && other_unit.Team == TargetTeam && unit.target == null && unit.MotherTarget == null && !unit.pursue)
+        if (other_unit == null)
         {
+            return;
+        }
+
+        else if (unit.hasTarget)
+        {
+            if(other_unit == unit.target)
+                unit.AttackTarget();
+        }
+        else if(other_unit.Team == TargetTeam)
+        {
+            unit.hasTarget = true;
             unit.target = other_unit;
             other_unit.unitDead.AddListener(unit.TargetDead);
-
+            unit.AttackTarget();
         }
     }
 
@@ -77,18 +96,29 @@ public class ARO : MonoBehaviour
      */
     private void OnTriggerExit(Collider other)
     {
-        MotherShip mother = other.GetComponent<MotherShip>();
-        if (mother != null && mother == unit.MotherTarget)
+        if (!unit.hasTarget)
         {
-            unit.MotherTarget = null;
             return;
         }
-
-        Unit other_unit = other.GetComponent<Unit>();
-        if (other_unit != null && other_unit == unit.target)
+        else if (unit.MotherTarget != null)
         {
-            unit.target = null;
-            other_unit.unitDead.RemoveListener(unit.TargetDead);
+            MotherShip mother = other.GetComponent<MotherShip>();
+            if (mother != null && mother == unit.MotherTarget)
+            {
+                unit.MotherTarget = null;
+                unit.hasTarget = false;
+                return;
+            }
+        }
+        else if (unit.target != null)
+        {
+            Unit other_unit = other.GetComponent<Unit>();
+            if (other_unit != null && other_unit == unit.target)
+            {
+                unit.target = null;
+                unit.hasTarget = false;
+                other_unit.unitDead.RemoveListener(unit.TargetDead);
+            }
         }
     }
 }

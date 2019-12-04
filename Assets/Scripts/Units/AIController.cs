@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -55,7 +56,14 @@ public class AIController : MonoBehaviour
             PlayerUnits.Remove(u);
         }
     }
+    bool start = true;
+    bool temp = true;
 
+    IEnumerator TEST()
+    {
+        yield return new WaitForSeconds(10);
+        temp = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -82,22 +90,26 @@ public class AIController : MonoBehaviour
             }
         }
         */
+        if(temp)
+        {
+            if (start)
+            {
+                start = false;
+                StartCoroutine(TEST());
+            }
+            return;
+        }
         foreach (Unit unit in EnemyUnits)
         {
-            if (!unit.HasTarget())
+            if (!unit.hasTarget)
             {
-
                 int targetIndex = rng.Next(0, PlayerUnits.Count + MotherBias);
-                Debug.Log(unit.gameObject.name);
-                Debug.Log(targetIndex);
                 if (targetIndex >= PlayerUnits.Count)
                 {
-                    Debug.Log("MOTHER");
                     unit.SetTarget(PlayerMother);
                 }
                 else
                 {
-                    Debug.Log(PlayerUnits[targetIndex].transform.position);
                     unit.SetTarget(PlayerUnits[targetIndex]);
                 }
             }
