@@ -14,6 +14,7 @@ public class beginGameTextScript : MonoBehaviour
     void Update()
     {
         if (OVRInput.GetDown(OVRInput.RawButton.A)){
+            GameManager.Instance.SetComponents(true);
             this.gameObject.SetActive(false);
         }
     }
