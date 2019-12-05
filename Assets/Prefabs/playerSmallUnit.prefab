@@ -316,4 +316,4 @@ MonoBehaviour:
     type: 3}
   MinimumLaserOffset: -1
   MaximumLaserOffset: 1
-  laserSpeed: 1
+  laserSpeed: 0.5

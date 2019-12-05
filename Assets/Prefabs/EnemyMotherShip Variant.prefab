@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 6924592268721272088, guid: 03a6900899e086b4a97b14cef8bdbeba,
         type: 3}
       propertyPath: m_Name
-      value: EnemyMotherShip
+      value: EnemyMotherShip Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6215616344064968459, guid: 03a6900899e086b4a97b14cef8bdbeba,
         type: 3}
@@ -70,17 +70,17 @@ PrefabInstance:
     - target: {fileID: 6215616344064968459, guid: 03a6900899e086b4a97b14cef8bdbeba,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3057337
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6215616344064968459, guid: 03a6900899e086b4a97b14cef8bdbeba,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3057337
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6215616344064968459, guid: 03a6900899e086b4a97b14cef8bdbeba,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3057337
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4547494420338212268, guid: 03a6900899e086b4a97b14cef8bdbeba,
         type: 3}
