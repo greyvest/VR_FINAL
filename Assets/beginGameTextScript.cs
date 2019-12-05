@@ -13,7 +13,9 @@ public class beginGameTextScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Checking for input");
         if (OVRInput.GetDown(OVRInput.RawButton.A)){
+            GameManager.Instance.SetGameComponentsActive(true);
             this.gameObject.SetActive(false);
         }
     }

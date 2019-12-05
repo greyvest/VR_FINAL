@@ -120,7 +120,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2758068933202595607}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &2774383652074725986
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ Transform:
   m_GameObject: {fileID: 8571676587681942891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.8, y: 0.1166687, z: -25.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4804474, y: 1.4804474, z: 1.4804474}
   m_Children:
   - {fileID: 465753047}
   - {fileID: 2758068933202595607}
@@ -310,3 +310,10 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: af1f9daf3ac11e140b302ce26a93a237, type: 2}
   target: {fileID: 0}
   MotherTarget: {fileID: 0}
+  hasTarget: 0
+  Explosion: {fileID: 100000, guid: 15ca5b8fa431dc04291a79cadcd19874, type: 3}
+  LaserPrefab: {fileID: 7001326384535677086, guid: 6beb0ed2f2734d147a082df261447624,
+    type: 3}
+  MinimumLaserOffset: -4
+  MaximumLaserOffset: 3
+  laserSpeed: 0.5

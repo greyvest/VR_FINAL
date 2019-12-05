@@ -106,6 +106,7 @@ public class InputManager : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
+            Debug.Log("Getting A");
             A = !A;
         }
         if (OVRInput.GetDown(OVRInput.RawButton.B))

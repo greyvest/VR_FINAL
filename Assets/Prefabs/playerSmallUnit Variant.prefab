@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 8571676587681942891, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}
       propertyPath: m_Name
-      value: playerSmallUnit
+      value: playerSmallUnit Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8571676587681942892, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}
@@ -35,7 +35,7 @@ PrefabInstance:
     - target: {fileID: 8571676587681942892, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8571676587681942892, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}
@@ -45,7 +45,7 @@ PrefabInstance:
     - target: {fileID: 8571676587681942892, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8571676587681942892, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}
@@ -60,7 +60,7 @@ PrefabInstance:
     - target: {fileID: 8571676587681942892, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8571676587681942892, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}
@@ -71,6 +71,32 @@ PrefabInstance:
         type: 3}
       propertyPath: Team
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571676587681942894, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
+        type: 3}
+      propertyPath: Explosion
+      value: 
+      objectReference: {fileID: 100000, guid: 15ca5b8fa431dc04291a79cadcd19874, type: 3}
+    - target: {fileID: 8571676587681942894, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
+        type: 3}
+      propertyPath: LaserPrefab
+      value: 
+      objectReference: {fileID: 7001326384535677086, guid: 6beb0ed2f2734d147a082df261447624,
+        type: 3}
+    - target: {fileID: 8571676587681942894, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
+        type: 3}
+      propertyPath: MinimumLaserOffset
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571676587681942894, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
+        type: 3}
+      propertyPath: MaximumLaserOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571676587681942894, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
+        type: 3}
+      propertyPath: laserSpeed
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 9159254580061447479, guid: 0a299c86a86ae7a44ae0fa293c6377b8,
         type: 3}

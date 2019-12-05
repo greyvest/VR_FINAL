@@ -44,10 +44,11 @@ public class ARO : MonoBehaviour
         {
             return;
         }
-
+        //Debug.Log(other.gameObject.name);
         MotherShip mother = other.GetComponent<MotherShip>();
         if (mother != null && mother.Team == TargetTeam)
         {
+
             unit.MotherTarget = mother;
             unit.hasTarget = true;
             unit.AttackTarget();
