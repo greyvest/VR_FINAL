@@ -3,7 +3,7 @@ This is our final project repository for the Fall 2019 CS 5963 class.
 
 Our game, Explosions in the Sky, is a game developed for the Oculus Rift with Touch Controllers. It's a simple RTS developed with the idea in mind of creating a new perspective to witness RTS like games from, one that evokes reality and awe rather than a perspective purpsoed exclusively for strategy.
 
-###Running the game. ###
+### Running the game. ###
 
 1. This game was developed using OVR (Open VR inputs) on an oculus rift with touch controllers. We have tested it on the valve index's present in the VR Classroom and found that the knuckle controllers don't seem to be responseive to OVR input. So, to guarantee this game's functionality, please use with an oculus device with touch controllers.
 
