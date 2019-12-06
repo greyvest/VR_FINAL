@@ -85,6 +85,5 @@ This is obviously subjective, and the game has a lot of things left we could ite
 ## Resources used ##
 We used a variety of freely avaialable resources and would like to acknowledge and thank them here. 
 
-*Selection box logic was based off of this tutorial
-  *[Unity Tutorial - RTS Controls - Selection Box GUI - Part 4](https://www.youtube.com/watch?v=vsdIhyLKgjc)
+[Selection box Logic based off this tutorial by c00pla](https://www.youtube.com/watch?v=vsdIhyLKgjc)
   
