@@ -34,56 +34,63 @@ A+B/X+Y: If you toggle both filters on by pressing A and then B or X and then Y,
 
 Our project had the following as it's stated goals in the project proposal:
 
-To create an RTS game experimenting with a new perspective on RTS gameplay
+* To create an RTS game experimenting with a new perspective on RTS gameplay
 
-To create a new control method for RTS games in VR, focused on evoking awe through controls instead of being the most tactically sound control methods.
+* To create a new control method for RTS games in VR, focused on evoking awe through controls instead of being the most tactically sound control methods.
 
-To do so through implementing a simple RTS game revolving around a low-orbit space battle taking place above the player.
+* To do so through implementing a simple RTS game revolving around a low-orbit space battle taking place above the player.
 
-To create a fun experience focused around the joy of controls over the nitty gritty tactics most often found in RTS games. 
+* To create a fun experience focused around the joy of controls over the nitty gritty tactics most often found in RTS games. 
 
 #### Granular project goals: ####
 
-Click and drag control Scheme:
+* Click and drag control Scheme:
 This control scheme, as described in our project proposal, revolves around being able to click and drag to select units (like clicking and dragging with a mouse on a desktop). The purpose of this was to create more natural, free flowing controls for directing units.
 
-Unit filtering controls:
+* Unit filtering controls:
 The unit filtering controls were a simple way to provide the player with the ability to select unit types while doing a click and drag selection.
 
-Unit Movement:
+* Unit Movement:
 We made the goal of having collision aware movement through the space for all combat units. 
 
-Simple AI: 
+* Simple AI: 
 We had the goal of creating a simple but effective AI to create challenge for the player.
 
-VR ground persepctive: 
+* VR ground persepctive: 
 Another goal was to create a different perspective for viewing the battlefield. Instead of a godlike view (e.g. Starcraft 2), provide a more realistic, humanity oriented view of what an epic battle might look like. 
 
-Fun RTS: 
+* Fun RTS: 
 We wanted to make the game at least somewhat enjoyable. It's a game. 
 
 ### Status of implementation: ###
 
-Click and drag control Scheme:
+* Click and drag control Scheme:
 We succesfully fully implemented our click and drag control scheme into the game. It functions by holding down the index finger trigger, dragging across the sky over units that you've selected, and then releasing. After that, you use the hand trigger to point and click at where you want the units to go. The units use an attack move behavior, which means they move towwards the destination they've been given and attack anything along the way, without stopping. You can find this implementation in the InputManager script.
 
-Unit Filtering Controls: 
+* Unit Filtering Controls: 
 We succesfullly implemented filtering controls on the face buttons of the touch controllers. The system works smoothly and reliably. This functionality can be found in the input manager scripts. 
 
-Unit Movement:
+* Unit Movement:
 Through using a Nav mesh, we were succesfully able to make smooth unit navigation that accounts for collisions with other units and avoids them. Just check the Navmaesh if you need any clarification in implementation. 
 
-Simple AI: 
+* Simple AI: 
 We created a simple flocking AI to compete against the player. While certainly nowhere near a high-caliber quality AI (e.g. Starcraft 2), the AI functions well enough to create meaningful challenge for the player and require them to actively consider their actions. Check the game manager for details. 
 
-VR Ground Perspective: 
+* VR Ground Perspective: 
 We did fully impelement this (by placing the camera on the ground). We're also going to be presenting the demo with a beanbag chair for player's to sit in, so they can comfortably look upwards. The game is reccomended to be played in this manner.
 
-Fun RTS:
+* Fun RTS:
 This is obviously subjective, and the game has a lot of things left we could iterate on to make it a better RTS game, but the core experience is something that we (Austin and Tim) find fun and engaging. We definitely see a future for this game if we choose to continue developing it. 
 
 ## Resources used ##
 We used a variety of freely avaialable resources and would like to acknowledge and thank them here. 
 
-[Selection box Logic based off this tutorial by c00pla](https://www.youtube.com/watch?v=vsdIhyLKgjc)
+*  [Selection box Logic based off this tutorial by c00pla](https://www.youtube.com/watch?v=vsdIhyLKgjc)
   
+*  [Free ship models provided here under CC0 license](https://mehrasaur.itch.io/3d-spaceships-pack)
+
+*  [Music and naming inspiration by Explosions in the Sky](http://www.explosionsinthesky.com/)
+
+*  [Code Light sample font provided here](https://www.dafont.com/code.font)
+
+*  [Soda bottle/Can models](https://www.turbosquid.com/FullPreview/Index.cfm/ID/811078), [deck chair model](https://www.turbosquid.com/FullPreview/Index.cfm/ID/1335126), and [binoculars model](https://www.turbosquid.com/FullPreview/Index.cfm/ID/531242) from turbosquid
