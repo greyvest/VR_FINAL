@@ -11,9 +11,9 @@ Our game, Explosions in the Sky, is a game developed for the Oculus Rift with To
 
 3. Note: It seems that, due to something with Steam VR input overides, the A and X buttons on oculus touch controllers are sometimes unreliable in their functionality, whiich will cause issues with filtering controls in the game. We have tried to program around this, but please try to run the game without running Steam VR if possible. 
 
-###Playing this game.###
+### Playing this game ###
 
-####Controls:####
+#### Controls: ####
 
 To select units, point at the sky with the controller, pull the index trigger, and drag across any blue (friendly) units that you want to select. After that, release the trigger, and those units are now selected.
 
@@ -29,7 +29,7 @@ B/Y: When you press B/Y (without other filters toggled on), it will toggle the m
 
 A+B/X+Y: If you toggle both filters on by pressing A and then B or X and then Y, it will toggle the large unit selection. When your selection box is blue, that means that the only units you will select when click-drag selecting are large type units. 
 
-### Project Goals###
+### Project Goals ###
 
 Our project had the following as it's stated goals in the project proposal:
 
@@ -41,7 +41,7 @@ To do so through implementing a simple RTS game revolving around a low-orbit spa
 
 To create a fun experience focused around the joy of controls over the nitty gritty tactics most often found in RTS games. 
 
-####Granular project goals:####
+#### Granular project goals: ####
 
 Click and drag control Scheme:
 This control scheme, as described in our project proposal, revolves around being able to click and drag to select units (like clicking and dragging with a mouse on a desktop). The purpose of this was to create more natural, free flowing controls for directing units.
@@ -61,7 +61,7 @@ Another goal was to create a different perspective for viewing the battlefield. 
 Fun RTS: 
 We wanted to make the game at least somewhat enjoyable. It's a game. 
 
-###Status of implementation:###
+### Status of implementation: ###
 
 Click and drag control Scheme:
 We succesfully fully implemented our click and drag control scheme into the game. It functions by holding down the index finger trigger, dragging across the sky over units that you've selected, and then releasing. After that, you use the hand trigger to point and click at where you want the units to go. The units use an attack move behavior, which means they move towwards the destination they've been given and attack anything along the way, without stopping. You can find this implementation in the InputManager script.
