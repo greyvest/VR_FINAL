@@ -1,4 +1,5 @@
-# Austin Anderson and Tim Trimble VR Final Project
+# Explosions in the Sky
+## Final Project for CS 5963, by Austin Anderson and Tim Trimble
 This is our final project repository for the Fall 2019 CS 5963 class.
 
 Our game, Explosions in the Sky, is a game developed for the Oculus Rift with Touch Controllers. It's a simple RTS developed with the idea in mind of creating a new perspective to witness RTS like games from, one that evokes reality and awe rather than a perspective purpsoed exclusively for strategy.
