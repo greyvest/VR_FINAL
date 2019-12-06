@@ -5,7 +5,7 @@ Our game, Explosions in the Sky, is a game developed for the Oculus Rift with To
 
 ### Running the game. ###
 
-1. This game was developed using OVR (Open VR inputs) on an oculus rift with touch controllers. We have tested it on the valve index's present in the VR Classroom and found that the knuckle controllers don't seem to be responseive to OVR input. So, to guarantee this game's functionality, please use with an oculus device with touch controllers.
+1. This game was developed using OVR (Open VR inputs) on an oculus rift with touch controllers. We have tested it on the valve indexes present in the VR Classroom and found that the knuckle controllers don't seem to be responseive to OVR input. So, to guarantee this game's functionality, please use with an oculus device with touch controllers.
 
 2. Not required, but the game is designed to be played sitting in a reclining chair or laying down on a beanbag chair of some sort. The game involves looking almost directly upwards for most of it's gameplay. This is *purposeful*. The comfort of someone playing the game sitting or standing straight up is not something we developed for, and so it should be taken into account that any discomfort experienced while playing this way is due to playing in a non-reccomended fashion.
 
