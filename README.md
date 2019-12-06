@@ -83,7 +83,7 @@ We did fully impelement this (by placing the camera on the ground). We're also g
 This is obviously subjective, and the game has a lot of things left we could iterate on to make it a better RTS game, but the core experience is something that we (Austin and Tim) find fun and engaging. We definitely see a future for this game if we choose to continue developing it. 
 
 ## Resources used ##
-We used a variety of freely avaialable resources and would like to acknowledge and thank them here. 
+We used a variety of freely available resources and would like to acknowledge and thank their creators here. 
 
 *  [Selection box Logic based off this tutorial by c00pla](https://www.youtube.com/watch?v=vsdIhyLKgjc)
   
