@@ -9,7 +9,7 @@ Our game, Explosions in the Sky, is a game developed for the Oculus Rift with To
 
 2. Not required, but the game is designed to be played sitting in a reclining chair or laying down on a beanbag chair of some sort. The game involves looking almost directly upwards for most of it's gameplay. This is *purposeful*. The comfort of someone playing the game sitting or standing straight up is not something we developed for, and so it should be taken into account that any discomfort experienced while playing this way is due to playing in a non-reccomended fashion.
 
-3. Note: It seems that, due to something with Steam VR input overides, the A and X buttons on oculus touch controllers are sometimes unreliable in their functionality, whiich will cause issues with filtering controls in the game. We have tried to program around this, but please try to run the game without running Steam VR if possible. 
+3. Note: It seems that, due to something with Steam VR input overides, the A and X buttons on oculus touch controllers are sometimes unreliable in their functionality, which will cause issues with filtering controls in the game. We have tried to program around this, but please try to run the game without running Steam VR if possible. 
 
 ### Playing this game ###
 
@@ -17,7 +17,7 @@ Our game, Explosions in the Sky, is a game developed for the Oculus Rift with To
 
 To select units, point at the sky with the controller, pull the index trigger, and drag across any blue (friendly) units that you want to select. After that, release the trigger, and those units are now selected.
 
-To direct units to move to a given location, simply point at that location AFTER selecting units, and pull the hand trigger (the lower trigger).
+To direct units to move to a given location, simply point at that location AFTER selecting units, and pull the hand trigger (the lower trigger). Units will automatically attack any enemy (red) units within range.
 
 To filter out units during selection, use the A/X and B/Y face buttons. Pressing any of these face buttons will toggle on/off the unit filtering, according to the following guid:
 
