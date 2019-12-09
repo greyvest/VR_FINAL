@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: TestUnity
   MaxHealth: 100
-  Damage: 25
+  Damage: 20
   Speed: 10
   Range: 15
-  AtkSpeed: 0.3
+  AtkSpeed: 0.75
