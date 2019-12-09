@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: playerLarge
   m_EditorClassIdentifier: 
   UnitName: TestUnity
-  MaxHealth: 600
+  MaxHealth: 200
   Damage: 40
   Speed: 5
   Range: 75

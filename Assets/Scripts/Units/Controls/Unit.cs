@@ -140,7 +140,7 @@ public class Unit : MonoBehaviour
         GameObject laser = Instantiate(LaserPrefab, transform);
         laser.transform.LookAt(dest);
         float t = 0f;
-        while(t <= 1f)
+        while(t <= laserSpeed)
         {
             t += Time.deltaTime;
             laser.transform.position = Vector3.Lerp(startPos, dest, t);
