@@ -71,10 +71,22 @@ public class ARO : MonoBehaviour
     {
         Unit other_unit = other.GetComponent<Unit>();
         MotherShip other_mother = other.GetComponent<MotherShip>();
-
-        if (unit.hasTarget && other_unit != null & other_mother != null)
+        /*
+        if (unit.hasTarget && other_unit != null && other_mother != null)
         {
             if(other_unit == unit.target || other_mother == unit.MotherTarget)
+            {
+                unit.AttackTarget();
+            }
+        }
+        */
+        if(unit.hasTarget)
+        {
+            if(other_unit != null && other_unit == unit.target)
+            {
+                unit.AttackTarget();
+            }
+            else if (other_mother != null && other_mother == unit.MotherTarget)
             {
                 unit.AttackTarget();
             }

@@ -26,7 +26,6 @@ public class cubeScript : MonoBehaviour
 
     public List<GameObject> getFilteredSelection(bool small, bool medium)
     {
-        Debug.Log("Getting filtered selection with " + small + medium);
         List<GameObject> returnList = new List<GameObject>();
         if (small)
         {

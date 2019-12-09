@@ -167,8 +167,6 @@ public class InputManager : MonoBehaviour
         {
             selectionPane1.gameObject.SetActive(false);
             selectionPane1.transform.localScale = new Vector3(1, 1, 1);
-            Debug.Log("A: " + OVRInput.GetDown(OVRInput.RawButton.A));
-            Debug.Log("B: " + OVRInput.GetDown(OVRInput.RawButton.B));
             rSelection = selectionPane1.GetComponent<cubeScript>().getFilteredSelection(A, B);
            
             Destroy(startPointMarker);

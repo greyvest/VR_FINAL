@@ -107,6 +107,7 @@ public class Unit : MonoBehaviour
         Vector3 laserTarget = Vector3.zero;
         if(MotherTarget != null)
         {
+            Debug.Log(gameObject.name);
             laserTarget = MotherTarget.transform.position;
             MotherTarget.TakeDamage(stats.Damage);
             shouldTarget = true;

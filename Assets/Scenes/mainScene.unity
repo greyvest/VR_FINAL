@@ -802,6 +802,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4342596838936682516, guid: 52cba07b3609f194a94b37e4f97966d0,
+        type: 3}
+      propertyPath: Explosion
+      value: 
+      objectReference: {fileID: 100000, guid: 15ca5b8fa431dc04291a79cadcd19874, type: 3}
+    - target: {fileID: 4342596838936682516, guid: 52cba07b3609f194a94b37e4f97966d0,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52cba07b3609f194a94b37e4f97966d0, type: 3}
 --- !u!4 &146068794 stripped
@@ -1640,6 +1650,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'CONGRADULATIONS!!!
 
     YOU WIN
@@ -1818,7 +1830,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407284333}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 131, z: 0}
+  m_LocalPosition: {x: -86.4, y: 131, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 50516640}
@@ -3972,7 +3984,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965620190}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -9.105103, y: 106.153915, z: -6.2}
+  m_LocalPosition: {x: -95.505104, y: 106.153915, z: -6.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2087159108}
@@ -4231,7 +4243,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029862790}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -9.105103, y: 106.153915, z: -6.2}
+  m_LocalPosition: {x: -95.505104, y: 106.153915, z: -6.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1325790722}
@@ -5082,6 +5094,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Explosions in the Sky
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c7c5111418c56b468aa2bf97ada0739, type: 2}
@@ -6406,6 +6420,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: A game by Tim Trimble and Austin Anderson
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c7c5111418c56b468aa2bf97ada0739, type: 2}
@@ -7168,6 +7184,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Press A to Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c7c5111418c56b468aa2bf97ada0739, type: 2}
@@ -7538,6 +7556,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'YOUR MOTHERSHIP IS DESTROYED:
 
     YOU LOSE
@@ -7884,6 +7904,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528438731092250906, guid: 03a6900899e086b4a97b14cef8bdbeba,
+        type: 3}
+      propertyPath: Explosion
+      value: 
+      objectReference: {fileID: 100000, guid: 15ca5b8fa431dc04291a79cadcd19874, type: 3}
+    - target: {fileID: 3528438731092250906, guid: 03a6900899e086b4a97b14cef8bdbeba,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03a6900899e086b4a97b14cef8bdbeba, type: 3}
